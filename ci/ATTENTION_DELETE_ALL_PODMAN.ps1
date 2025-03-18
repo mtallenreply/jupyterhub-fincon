@@ -19,7 +19,7 @@ function Clear-PodmanResources {
     Write-Output "Lösche alle Netzwerke (außer Standardnetzwerke)..."
 
     $confirmation = Read-Host "Are you sure to delete all Podman-Resources? Sind Sie sicher, dass Sie ALLE Podman-Ressourcen löschen möchten? (Y/N)"
-    if ($confirmation -notin @("Y","y","yes","Yes","N","n","No","no")) {
+    if ($confirmation -notin @("Y","y","yes","Yes")) {
         Write-Output "Bereinigung abgebrochen."
         return
     }

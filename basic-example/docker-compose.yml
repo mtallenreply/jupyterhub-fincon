@@ -6,14 +6,9 @@ version: "3"
 
 services:
   hub:
-    build:
-      context: .
-      dockerfile: Dockerfile.jupyterhub
-      args:
-        JUPYTERHUB_VERSION: latest
-    restart: always
-    image: jupyterhub
+    image: ghcr.io/mtallenreply/jupyterhub-reply:latest
     container_name: jupyterhub
+    restart: always
     networks:
       - jupyterhub-network
     volumes:
@@ -21,9 +16,11 @@ services:
       - "./jupyterhub_config.py:/srv/jupyterhub/jupyterhub_config.py:ro"
       # Bind Docker socket on the host so we can connect to the daemon from
       # within the container
-      - "/var/run/docker.sock:/var/run/docker.sock:rw"
+      # hier wenn PODMAN_SOCKET vorhanden dann wird es genutzt sonst der fixe wert
+      - "${PODMAN_SOCKET:-/var/run/docker.sock}:/var/run/docker.sock:rw"
       # Bind Docker volume on host for JupyterHub database and cookie secrets
       - "jupyterhub-data:/data"
+      - "jupyterhub-shared-data:/data/work/shared"
     ports:
       - "8000:8000"
     environment:
@@ -32,12 +29,14 @@ services:
       # All containers will join this network
       DOCKER_NETWORK_NAME: jupyterhub-network
       # JupyterHub will spawn this Notebook image for users
-      DOCKER_NOTEBOOK_IMAGE: quay.io/jupyter/base-notebook:latest
+#      DOCKER_NOTEBOOK_IMAGE: quay.io/jupyter/base-notebook:latest
+      DOCKER_NOTEBOOK_IMAGE: ghcr.io/mtallenreply/notebook-reply:latest
       # Notebook directory inside user image
       DOCKER_NOTEBOOK_DIR: /home/jovyan/work
-
 volumes:
   jupyterhub-data:
+  jupyterhub-shared-data:   # <<< Shared Volume für alle Container
+
 
 networks:
   jupyterhub-network:

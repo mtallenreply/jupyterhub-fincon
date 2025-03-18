@@ -1,0 +1,10 @@
+FROM quay.io/jupyter/base-notebook:latest
+
+# Hier zusätzliche Python-Pakete installieren, zum Beispiel LangChain
+RUN pip install --no-cache-dir \
+    langchain \
+    langchain-openai \
+    langchain-chroma \
+    langgraph \
+    tiktoken\
+    jupyter-collaboration

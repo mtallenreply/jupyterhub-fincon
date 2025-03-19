@@ -61,6 +61,6 @@ function BuildAndDeploy
     to image reference: $versionNotebook (or :latest) Server gets only updated when you change something"
 }
 
-$version = "1.0.6"
+$version = "1.0.8"
 # Skript ausführen
 BuildAndDeploy -versionHub $version -versionNotebook $version

@@ -55,7 +55,7 @@ c.JupyterHub.hub_ip = "jupyterhub"
 # c.JupyterHub.hub_ip = '0.0.0.0'
 
 c.JupyterHub.hub_port = 8080
-# c.JupyterHub.bind_url = "http://0.0.0.0:8000"
+c.JupyterHub.bind_url = "http://0.0.0.0:8000"
 
 # Persist hub data on volume mounted inside container
 c.JupyterHub.cookie_secret_file = "/data/jupyterhub_cookie_secret"
